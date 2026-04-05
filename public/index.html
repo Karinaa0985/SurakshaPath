@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurakshaPath | Campus Safety</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Hamburger Navbar -->
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-brand mb-0 h1 mx-auto"><i class="fas fa-shield-alt"></i> SurakshaPath</span>
+            <span class="badge bg-success" id="connectionStatus">Online</span>
+        </div>
+    </nav>
+
+    <!-- Offcanvas Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" data-bs-backdrop="false" data-bs-scroll="true">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title"><i class="fas fa-bars me-2"></i> Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="navbar-nav">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+                    <i class="fas fa-user-circle me-2"></i> My Profile
+                </a>
+                <a class="nav-link" href="#map" data-bs-dismiss="offcanvas">
+                    <i class="fas fa-map-marker-alt me-2"></i> Locate User
+                </a>
+                <a class="nav-link" href="#transportSection" data-bs-dismiss="offcanvas">
+                    <i class="fas fa-taxi me-2"></i> Transport Facility
+                </a>
+                <hr>
+                <div id="authLinks">
+                    <a class="nav-link" href="login.html">
+                        <i class="fas fa-sign-in-alt me-2"></i> Login
+                    </a>
+                    <a class="nav-link" href="register.html">
+                        <i class="fas fa-user-plus me-2"></i> Signin
+                    </a>
+                </div>
+                <div id="logoutSection" style="display: none;">
+                    <a class="nav-link text-warning" href="#" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div id="map"></div>
+    <div class="sos-container">
+        <button class="btn btn-sos" onclick="triggerSOS()">SOS</button>
+    </div>
+
+    <!-- Main Controls -->
+    <div class="container mt-3">
+        
+        <!-- Status Messages -->
+        <div class="text-center mb-3">
+            <p id="locationStatus" class="text-muted small"><i class="fas fa-satellite-dish"></i> Fetching location...</p>
+            <p id="recordingStatus"><i class="fas fa-microphone"></i> REC Audio Evidence...</p>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="card feature-card glass-card p-3 text-center" id="timerCard">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0 indigo-text"><i class="fas fa-route"></i> Smart Travel</h5>
+                <span id="safetyScoreBadge" class="badge bg-success shadow-sm">Score: 100 (Safe)</span>
+            </div>
+
+            <!-- Journey Info Inputs -->
+            <div id="journeyInputs" class="mb-3">
+                <div class="input-group input-group-sm mb-2">
+                    <span class="input-group-text bg-white"><i class="fas fa-location-dot text-primary"></i></span>
+                    <input type="text" id="fromLoc" class="form-control" placeholder="From (Current Location)">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white"><i class="fas fa-flag-checkered text-danger"></i></span>
+                    <input type="text" id="toLoc" class="form-control" placeholder="To (Destination)">
+                </div>
+            </div>
+
+            <div class="timer-container mb-3" id="timerDisplayContainer" style="display: none;">
+                <svg class="progress-ring" width="120" height="120">
+                    <defs><linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4b0082" /><stop offset="100%" stop-color="#6a0dad" /></linearGradient></defs>
+                    <circle class="progress-ring__background" stroke="#e0e0e0" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                    <circle class="progress-ring__circle" id="progressRing" stroke-width="8" fill="transparent" r="52" cx="60" cy="60" stroke-linecap="round"/>
+                </svg>
+                <div id="timerDisplay">00:00</div>
+            </div>
+
+            <div id="timerActiveControls" style="display:none;" class="mb-3 d-flex justify-content-center gap-2">
+                <button class="btn btn-light shadow-sm btn-sm" id="pauseBtn" onclick="togglePause()"><i class="fas fa-pause"></i> Pause</button>
+                <button class="btn btn-light shadow-sm btn-sm" onclick="resetTimer()"><i class="fas fa-undo"></i> Reset</button>
+                <button class="btn btn-light shadow-sm btn-sm" onclick="shareLiveLocation()"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+            
+            <div id="timerControls">
+                <div class="input-group mb-2">
+                    <div class="form-check form-switch mb-2 w-100 text-start ps-5">
+                        <input class="form-check-input" type="checkbox" id="smartModeToggle" checked>
+                        <label class="form-check-label small" for="smartModeToggle">Smart Mode (Auto-detect delays)</label>
+                    </div>
+                    <select class="form-select" id="timeSelect">
+                        <option value="5">5 Mins (Hostel to Gate)</option>
+                        <option value="10">10 Mins (Library to Hostel)</option>
+                        <option value="15">15 Mins (Main Road to Campus)</option>
+                        <option value="30">30 Mins (Home)</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="startTimer()">Start</button>
+                </div>
+            </div>
+            <button class="btn btn-success w-100 mt-2" id="safeBtn" style="display:none;" onclick="markSafe()">
+                <i class="fas fa-check-circle"></i> I Reached Safely
+            </button>
+        </div>
+
+        <!-- Primary Emergency Contact (Single Display) -->
+        <div class="card feature-card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-heart text-danger"></i> Emergency Contact</h5>
+                <span class="badge bg-primary" id="primaryContactName">Guardian</span>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <div class="flex-grow-1 p-2 bg-light rounded border text-center fw-bold" id="displayEmergencyPhone">
+                    Not Set
+                </div>
+                <button class="btn btn-danger" onclick="callPrimary()" title="Call"><i class="fas fa-phone"></i></button>
+            </div>
+        </div>
+
+        <!-- Fake Call Feature -->
+        <div class="card feature-card p-3 text-center border-info">
+            <h5><i class="fas fa-phone-alt text-info"></i> Safety Escape</h5>
+            <p class="small text-muted">Feeling uncomfortable? Trigger a fake call to excuse yourself.</p>
+            <button class="btn btn-info w-100 text-white fw-bold" onclick="scheduleFakeCall()">
+                <i class="fas fa-phone-incoming"></i> Fake Incoming Call
+            </button>
+        </div>
+    </div>
+
+    <!-- Fake Call Overlay UI -->
+    <div id="fakeCallOverlay" class="fake-call-screen">
+        <div class="caller-info">
+            <div class="caller-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h2 id="fakeCallerName">Mom</h2>
+            <p class="calling-status">Mobile</p>
+        </div>
+        <div class="call-actions">
+            <div class="action-btn decline" onclick="endFakeCall()">
+                <i class="fas fa-phone-slash"></i>
+                <span>Decline</span>
+            </div>
+            <div class="action-btn accept" onclick="endFakeCall()">
+                <i class="fas fa-phone"></i>
+                <span>Accept</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-user"></i> My Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Recent Recordings:</h6>
+                    <div id="profileRecordings">
+                        <p class="text-muted small">No recent recordings available.</p>
+                        <audio id="audioPlayback" controls class="w-100"></audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Evidence Modal (Triggered on SOS) -->
+    <div class="modal fade" id="evidenceModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">SOS Evidence Recorded</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>A new audio recording has been saved to your profile.</p>
+                    <audio id="audioPlayback" controls class="w-100"></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS (Must load before Maps API to define initMap) -->
+    <script src="script.js"></script>
+
+    <!-- Google Maps API (Replace YOUR_KEY) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwletCxx5j_345VDtKQxt74iK-31DB4bc&callback=initMap" async defer></script>
+</body>
+</html>

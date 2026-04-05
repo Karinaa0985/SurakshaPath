@@ -1,0 +1,24 @@
+{
+  "name": "ta0082",
+  "version": "1.0.0",
+  "description": "<<<<<<< HEAD\r # SurakshaPath - Campus Safety Web App",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karinaa0985/my-TAA082.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Karinaa0985/my-TAA082/issues"
+  },
+  "homepage": "https://github.com/Karinaa0985/my-TAA082#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

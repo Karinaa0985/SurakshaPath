@@ -1,0 +1,276 @@
+:root {
+    --primary-color: #4b0082; /* Indigo */
+    --secondary-color: #4b0082; /* Indigo */
+    --accent-color: #a8dadc;
+    --safe-color: #2a9d8f;
+    --sos-red: #e63946;
+    --warning-color: #ff9800;
+    --primary-gradient: linear-gradient(135deg, #4b0082 0%, #6a0dad 100%);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #2d3436;
+    padding-bottom: 80px;
+}
+
+/* Ensure text highlights match the indigo theme */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.indigo-text {
+    color: #4b0082;
+    font-weight: 700;
+}
+
+/* Button Overrides */
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
+}
+
+/* Header */
+.navbar {
+    background-color: var(--secondary-color);
+    z-index: 1050; /* Ensure navbar stays above the sidebar for toggling */
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+}
+
+.navbar-toggler {
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Force hamburger lines to be pure white */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Map Container */
+#map {
+    height: 40vh;
+    width: 100%;
+    border-bottom: 5px solid var(--secondary-color);
+}
+
+/* SOS Button - Pulsing Animation */
+.sos-container {
+    text-align: center;
+    margin-top: -40px;
+    position: relative;
+    z-index: 1000;
+}
+
+.btn-sos {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--sos-red);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border: 4px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(230, 57, 70, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+}
+
+/* Feature Cards */
+.feature-card {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    margin-bottom: 15px;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.feature-card:active {
+    transform: scale(0.98);
+}
+
+/* Timer Display */
+.timer-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 1s linear, stroke 0.35s;
+    transform-origin: 50% 50%;
+    stroke: url(#ringGradient);
+}
+
+#timerDisplay {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--safe-color);
+}
+
+@keyframes scorePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#timerDisplayContainer {
+    display: none; /* Controlled via JS */
+}
+
+/* Timer Active Controls */
+#timerActiveControls .btn {
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+/* Trusted Auto List */
+.driver-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Nav Links Theme */
+.offcanvas {
+    background-color: #ffffff;
+    color: var(--primary-color);
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid #eee;
+}
+
+.offcanvas-title {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.offcanvas .nav-link {
+    color: var(--primary-color) !important;
+    font-size: 1.1rem;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.offcanvas .nav-link:hover {
+    background-color: var(--primary-color);
+    color: #ffffff !important;
+}
+
+/* Recording Indicator */
+#recordingStatus {
+    display: none;
+    color: red;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- Login Page Styles --- */
+.login-page {
+    background-color: var(--secondary-color);
+    padding-bottom: 0; /* Override body padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin: auto;
+}
+
+/* --- Fake Call Screen Overlay --- */
+.fake-call-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #1a1a1a, #000000);
+    z-index: 9999;
+    color: white;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.caller-info {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.caller-avatar {
+    font-size: 80px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.calling-status {
+    color: #2a9d8f;
+    animation: blink 1.5s infinite;
+}
+
+.call-actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.action-btn i {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.decline i { background-color: #e63946; }
+.accept i { background-color: #2a9d8f; }
