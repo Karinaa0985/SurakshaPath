@@ -289,11 +289,9 @@ function togglePause() {
         clearInterval(timerInterval);
         timerInterval = null;
         pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
-        pauseBtn.classList.replace("btn-outline-secondary", "btn-success");
     } else {
         runTimerInterval();
         pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
-        pauseBtn.classList.replace("btn-success", "btn-outline-secondary");
     }
 }
 
@@ -339,8 +337,6 @@ function resetTimerUI() {
     // Reset Pause Button State
     const pauseBtn = document.getElementById("pauseBtn");
     pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
-    pauseBtn.classList.add("btn-outline-secondary");
-    pauseBtn.classList.remove("btn-success");
 }
 
 // --- 5. Fake Call Logic ---
