@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurakshaPath - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2 class="brand-title">SurakshaPath</h2>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="form-section active">
+                <h3>Welcome Back</h3>
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p class="switch-text">Forgot Password? <span onclick="toggleForm('forgotForm')">Click here</span></p>
+                <p class="switch-text">New here? <span onclick="toggleForm('registerForm')">Register</span></p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="form-section hidden">
+                <h3>Create an Account</h3>
+                <div class="input-group">
+                    <input type="text" id="registerName" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="registerEmail" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <p class="switch-text">Already have an account? <span onclick="toggleForm('loginForm')">Login</span></p>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form id="forgotForm" class="form-section hidden">
+                <h3>Reset Password</h3>
+                <p class="sub-text">Enter your email and we'll send an OTP.</p>
+                <div class="input-group">
+                    <input type="email" id="forgotEmail" placeholder="Email Address" required>
+                </div>
+                <button type="submit" class="btn">Send OTP</button>
+                <p class="switch-text">Remember your password? <span onclick="toggleForm('loginForm')">Login</span></p>
+            </form>
+
+            <!-- Verify OTP & Reset Password Form -->
+            <form id="resetPasswordForm" class="form-section hidden">
+                <h3>Enter OTP</h3>
+                <p class="sub-text">Check your email for the 6-digit code.</p>
+                <div class="input-group">
+                    <input type="text" id="resetOtp" placeholder="6-Digit OTP" required maxlength="6">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="resetNewPassword" placeholder="New Password" required>
+                </div>
+                <button type="submit" class="btn">Reset Password</button>
+                <p class="switch-text">Back to <span onclick="toggleForm('loginForm')">Login</span></p>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
