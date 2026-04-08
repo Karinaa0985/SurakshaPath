@@ -1,0 +1,65 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f3ff;
+  margin: 0;
+}
+
+/* HEADER */
+.header {
+  background: indigo;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+/* TOP BAR */
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+
+/* ADD BUTTON */
+#addBtn {
+  font-size: 24px;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 50%;
+  background: indigo;
+  color: white;
+  cursor: pointer;
+}
+
+/* DRIVER CARDS */
+.card {
+  background: white;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(75, 0, 130, 0.2);
+}
+
+/* STARS */
+.stars span {
+  font-size: 20px;
+  margin-right: 5px;
+  transition: 0.2s;
+}
+
+.stars span:hover {
+  transform: scale(1.2);
+}
+
+/* MODAL */
+#modal div {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
