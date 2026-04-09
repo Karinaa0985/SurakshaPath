@@ -4,29 +4,81 @@
   <meta charset="UTF-8">
   <title>Transport Facility</title>
 
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Your CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark" style="background:#4b0082;">
+  <div class="container-fluid">
 
-<!-- Navbar (agar use kar rahi ho) -->
-<nav>...</nav>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<!-- NEW HEADER -->
-<div class="header">
-  <h2>SurakshaPath</h2>
+    <span class="navbar-brand mx-auto">
+      <i class="fas fa-shield-alt"></i> SurakshaPath
+    </span>
+
+    <span class="badge bg-success">Online</span>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">
+      <i class="fas fa-bars"></i> Menu
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <div class="navbar-nav">
+
+      <a class="nav-link" href="../index.html">
+        <i class="fas fa-home me-2"></i> Home
+      </a>
+
+      <a class="nav-link" href="../index.html#map">
+        <i class="fas fa-map-marker-alt me-2"></i> Locate User
+      </a>
+
+      <a class="nav-link" href="index.html">
+        <i class="fas fa-taxi me-2"></i> Transport Facility
+      </a>
+
+      <hr>
+
+      <a class="nav-link text-warning" href="../login.html">
+        <i class="fas fa-sign-out-alt me-2"></i> Logout
+      </a>
+
+    </div>
+  </div>
 </div>
 
+<!-- CONTENT -->
 <div class="top">
   <h2>Trusted Auto Drivers</h2>
-  <button id="addBtn">+</button>
+
+  <!-- 🔥 FINAL FIXED BUTTON -->
+  <button id="addBtn" class="btn btn-sm"
+    style="width:35px; height:30px; padding:0; line-height:1; font-size:18px;">
+    +
+  </button>
+
 </div>
 
 <div id="list"></div>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
 
   <div style="background:white; padding:20px; width:300px; margin:100px auto; border-radius:10px;">
@@ -43,6 +95,10 @@
 
 </div>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Your JS -->
 <script src="script.js"></script>
 
 </body>
